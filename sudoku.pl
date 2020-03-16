@@ -9,6 +9,17 @@
 
 :- use_module(library(clpfd)).
 
+inNew(H, [H|_]).
+
+inNew(V, [_|T]) :-
+    inNew(V, T).
+
+insNew([], _).
+
+insNew([H|T], Dom) :-
+        inNew(H, Dom),
+      insNew(T, Dom).
+
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    Constraint posting
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -19,7 +30,7 @@ addition(X,Y,Z) :- digit(X,X2), digit(Y,Y2), Z is X2+Y2.
 
 sudoku(Rows) :-
         length(Rows, 9), maplist(same_length(Rows), Rows),
-        append(Rows, Vs), ins(Vs, [1,2,3,4,5,6,7,8,9]),
+        append(Rows, Vs), insNew(Vs, [1,2,3,4,5,6,7,8,9]),
         maplist(all_distinct, Rows),
         transpose(Rows, Columns), maplist(all_distinct, Columns),
         Rows = [As,Bs,Cs,Ds,Es,Fs,Gs,Hs,Is],
