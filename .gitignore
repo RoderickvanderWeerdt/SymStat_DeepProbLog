@@ -227,3 +227,10 @@ __pycache__/
 *.bk
 
 sdd/
+examples/.DS_Store
+examples/NIPS/.DS_Store
+examples/NIPS/MNIST/.DS_Store
+data/MNIST/MNIST/.DS_Store
+data/MNIST/.DS_Store
+data/.DS_Store
+.DS_Store
