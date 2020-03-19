@@ -15,15 +15,16 @@ def prolog_format_sudoku(sudoku_size, filename, n_remove):
 				sudoku = sudoku[2:-3].split('],[')
 				new_sudoku = []
 				for row in sudoku:
-					new_sudoku.append(row.split(','))
+					new_sudoku += row.split(',')
 				sudoku = new_sudoku
 				while i < n_remove:
-					random_coor = (random.randint(1, sudoku_size), random.randint(1, sudoku_size))
-					if sudoku[random_coor[0]-1][random_coor[1]-1] != '_':
-						sudoku[random_coor[0]-1][random_coor[1]-1] = '_'
+					random_coor = (random.randint(1, sudoku_size*sudoku_size))
+					if sudoku[random_coor-1] != '_':
+						sudoku[random_coor-1] = '_'
 						i += 1
 					else:
 						continue
+				# print(str(new_sudoku))
 				new_sudoku_file.write('sudoku(' + str(new_sudoku).replace('\'', '') + ',Solution).\n')
 				# return 0
 
