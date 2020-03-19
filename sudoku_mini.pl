@@ -1,4 +1,5 @@
 %sudoku code retrieved from: https://thecodeboss.dev/2018/08/declarative-programming-with-prolog-part-3-putting-it-all-together/
+%training code retrieved from: https://bitbucket.org/problog/deepproblog/src/022a74294ed02d6fdaaa2414b57e52325d14266e/examples/NIPS/MNIST/single_digit/addition.pl
 %with added in/2, ins/2, all_distinct/1 & all_distinct/2 functions.
 
 in(H, [H|_]).
@@ -23,10 +24,27 @@ all_distinct([H|T]) :-
 
 sudoku(Puzzle, Solution) :-
         Solution = Puzzle,
-        Puzzle = [S11, S12, S13, S14,
-                  S21, S22, S23, S24,
-                  S31, S32, S33, S34,
-                  S41, S42, S43, S44],
+        Puzzle = [S11i, S12i, S13i, S14i,
+                  S21i, S22i, S23i, S24i,
+                  S31i, S32i, S33i, S34i,
+                  S41i, S42i, S43i, S44i],
+
+        digit(S11i, S11),
+        digit(S12i, S12),
+        digit(S13i, S13),
+        digit(S14i, S14),
+        digit(S21i, S21),
+        digit(S22i, S22),
+        digit(S23i, S23),
+        digit(S24i, S24),
+        digit(S31i, S31),
+        digit(S32i, S32),
+        digit(S33i, S33),
+        digit(S34i, S34),
+        digit(S41i, S41),
+        digit(S42i, S42),
+        digit(S43i, S43),
+        digit(S44i, S44),
  
         ins(Puzzle, [1, 2, 3, 4]),
  
@@ -54,8 +72,7 @@ valid([Head|Tail]) :-
     all_distinct(Head),
     valid(Tail).
 
-example(1) :-
-  sudoku([_, _, 2, 3, _, _, _, _, _, _, _, _, 3, 4, _, _],Solution).
+% code for training the test set
+nn(mnist_net,[X],Y,[0,1,2,3,4,5,6,7,8,9]) :: digit(X,Y).
 
-example(2) :-
-  sudoku([4, 1, 2, 3, 2, 3, 4, 1, 1, 2, 3, 4, 3, 4, 1, _],Solution).
+addition(X,Y,Z) :- digit(X,X2), digit(Y,Y2), Z is X2+Y2.
