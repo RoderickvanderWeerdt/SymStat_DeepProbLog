@@ -3,16 +3,24 @@ import random
 
 testset = torchvision.datasets.MNIST(root='data/', train=False, download=True)
 
-def sort_testset():
-	result = {1: [0, []], 2: [0, []], 3: [0, []], 4: [0, []], 5: [0, []], 6: [0, []], 7: [0, []], 8: [0, []], 9: [0, []], 0: [0, []]}
+def sort_testset(sudoku_size):
+	result = {}
+	i = 1
+	while i <= sudoku_size:
+		result.update({i: [0, []]})
+		i += 1
 	for i, number in enumerate(testset):
-		result[number[1]][1].append(i)
+		try:
+			result[number[1]][1].append(i)
+		except:
+			# print("number", number[1], "is not used in this sudoku, so can be skipped.")
+			continue
 	# for number in result.keys():
 	# 	print(number, len(result[number][1]))
 	return result
 
 def prolog_format_sudoku(sudoku_size, filename, n_remove):
-	test_dict = sort_testset()
+	test_dict = sort_testset(sudoku_size)
 	# print(test_dict[5])
 	if sudoku_size * sudoku_size < n_remove:
 		return 0 #can't remove more numbers then there are fields
