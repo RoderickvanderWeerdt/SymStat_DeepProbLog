@@ -1,6 +1,6 @@
-# DeepProbLog
-Most of the code here is taken from: https://bitbucket.org/problog/deepproblog/src/master/.
+# Addition beyond Addition: On sudoku puzzles and DeepProbLog
 
-We added an extra experiment of solving sudoku puzzles to show the possibilities of DeepProbLog.
+This repository is a built upon and copied from: https://bitbucket.org/problog/deepproblog/src/master/.
+The creators wrote DeepProbLog as an extension of [ProbLog](https://dtai.cs.kuleuven.be/problog/) that integrates Probabilistic Logic Programming with Deep Learning. This is their [paper](https://arxiv.org/abs/1805.10872) on DeepProbLog. 
 
-The creators wrote DeepProbLog as an extension of [ProbLog](https://dtai.cs.kuleuven.be/problog/) that integrates Probabilistic Logic Programming with Deep Learning. This is their [paper](https://arxiv.org/abs/1805.10872) on DeepProbLog.
+To further investigate the possibilities of DeepProbLog we added an experiment in which the program had to solve sudoku puzzles with handwritten symbols.
