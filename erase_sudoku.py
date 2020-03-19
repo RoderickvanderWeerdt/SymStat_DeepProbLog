@@ -19,9 +19,8 @@ def sort_testset(sudoku_size):
 	# 	print(number, len(result[number][1]))
 	return result
 
-def prolog_format_sudoku(sudoku_size, filename, n_remove):
+def prolog_format_sudoku(sudoku_size, filename, n_remove, list_of_lists=False):
 	test_dict = sort_testset(sudoku_size)
-	# print(test_dict[5])
 	if sudoku_size * sudoku_size < n_remove:
 		return 0 #can't remove more numbers then there are fields
 	new_filename = filename.split('.')[0][:-7] + '_' + str(n_remove) + 'open.pl'
@@ -51,8 +50,15 @@ def prolog_format_sudoku(sudoku_size, filename, n_remove):
 						i += 1
 					else:
 						continue
+				if list_of_lists:
+					new_sudoku = []
+					i = 0
+					while i < sudoku_size*sudoku_size:
+						new_sudoku.append(sudoku[i:i+sudoku_size])
+						i += sudoku_size
+					sudoku = new_sudoku
+				new_sudoku_file.write('sudoku(' + str(sudoku).replace('\'', '') + ',Solution).\n')
 				# print(str(new_sudoku))
-				new_sudoku_file.write('sudoku(' + str(new_sudoku).replace('\'', '') + ',Solution).\n')
 				# return 0
 
 
