@@ -29,4 +29,4 @@ model = Model(problog_string, [net], caching=False)
 optimizer = Optimizer(model, 2)
 
 test(model)
-train_model(model,train_queries, 1, optimizer,test_iter=1000,test=test_MNIST,snapshot_iter=10000)
+train_model(model,train_queries, 1, optimizer,test_iter=1000,test=test,snapshot_iter=10000)

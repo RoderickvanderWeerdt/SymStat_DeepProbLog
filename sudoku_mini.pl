@@ -29,22 +29,22 @@ sudoku(Puzzle, Solution) :-
                   S31i, S32i, S33i, S34i,
                   S41i, S42i, S43i, S44i],
 
-        digit(S11i, S11),
-        digit(S12i, S12),
-        digit(S13i, S13),
-        digit(S14i, S14),
-        digit(S21i, S21),
-        digit(S22i, S22),
-        digit(S23i, S23),
-        digit(S24i, S24),
-        digit(S31i, S31),
-        digit(S32i, S32),
-        digit(S33i, S33),
-        digit(S34i, S34),
-        digit(S41i, S41),
-        digit(S42i, S42),
-        digit(S43i, S43),
-        digit(S44i, S44),
+        digit(S11i, S11,[1,2,3,4]),
+        digit(S12i, S12,[1,2,3,4]),
+        digit(S13i, S13,[1,2,3,4]),
+        digit(S14i, S14,[1,2,3,4]),
+        digit(S21i, S21,[1,2,3,4]),
+        digit(S22i, S22,[1,2,3,4]),
+        digit(S23i, S23,[1,2,3,4]),
+        digit(S24i, S24,[1,2,3,4]),
+        digit(S31i, S31,[1,2,3,4]),
+        digit(S32i, S32,[1,2,3,4]),
+        digit(S33i, S33,[1,2,3,4]),
+        digit(S34i, S34,[1,2,3,4]),
+        digit(S41i, S41,[1,2,3,4]),
+        digit(S42i, S42,[1,2,3,4]),
+        digit(S43i, S43,[1,2,3,4]),
+        digit(S44i, S44,[1,2,3,4]),
  
         ins(Puzzle, [1, 2, 3, 4]),
  
@@ -73,6 +73,6 @@ valid([Head|Tail]) :-
     valid(Tail).
 
 % code for training the test set
-nn(mnist_net,[X],Y,[0,1,2,3,4,5,6,7,8,9]) :: digit(X,Y).
+nn(mnist_net,[X],Y,Possibilities) :: digit(X,Y,Possibilities).
 
-addition(X,Y,Z) :- digit(X,X2), digit(Y,Y2), Z is X2+Y2.
+addition(X,Y,Z) :- digit(X,X2,[0,1,2,3,4,5,6,7,8,9]), digit(Y,Y2,[0,1,2,3,4,5,6,7,8,9]), Z is X2+Y2.
