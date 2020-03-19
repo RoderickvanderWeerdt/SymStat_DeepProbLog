@@ -21,14 +21,14 @@ def prolog_format_sudoku(sudoku_size, filename, n_remove):
 		with open(new_filename, 'w') as new_sudoku_file:
 			sudoku_file.readline() #skip header
 			for sudoku in sudoku_file.readlines():
-				print(sudoku)
+				# print(sudoku)
 				i = 0
 				sudoku = sudoku[2:-3].split('],[')
 				new_sudoku = []
 				for row in sudoku:
 					for number in row.split(','):
 						number = int(number)
-						print(number)
+						# print(number)
 						try:
 							new_sudoku.append(test_dict[number][1][test_dict[number][0]])
 						except:
@@ -43,7 +43,7 @@ def prolog_format_sudoku(sudoku_size, filename, n_remove):
 						i += 1
 					else:
 						continue
-				print(str(new_sudoku))
+				# print(str(new_sudoku))
 				new_sudoku_file.write('sudoku(' + str(new_sudoku).replace('\'', '') + ',Solution).\n')
 				# return 0
 
