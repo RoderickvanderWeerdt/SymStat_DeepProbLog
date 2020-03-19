@@ -76,4 +76,4 @@ valid([Head|Tail]) :-
 nn(mnist_net,[X],Y,[0,1,2,3,4,5,6,7,8,9]) :: digit(X,Y, 10).
 nn(mnist_net,[X],Y,[1,2,3,4]) :: digit(X,Y, 4).
 
-addition(X,Y,Z) :- digit(X,X2, 4), digit(Y,Y2, 4), Z is X2+Y2.
+addition(X,Y,Z) :- digit(X,X2, 10), digit(Y,Y2, 10), Z is X2+Y2.
