@@ -10,7 +10,7 @@ import torch
 
 
 train_queries = load('train_data.txt')
-test_queries = load('4x4_sudokus_5open.pl')[:100]
+test_queries = load('4x4_sudokus_0open.pl')[:100]
 
 
 def test(model):
