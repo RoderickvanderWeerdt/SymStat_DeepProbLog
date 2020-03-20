@@ -22,12 +22,24 @@ all_distinct([H|T]) :-
         all_distinct(H, T),
         all_distinct(T).
 
+%% digits([Himage|Timages], [Hvalue, Tvalues]) :-
+%%     digit(Himage, Hvalue),
+%%     digits(Timages, Tvalues).
+%% digits([], []).
+
 sudoku(Puzzle, Solution) :-
-        Solution = Puzzle,
+        Solution = PuzzleNumbers,
         Puzzle = [S11i, S12i, S13i, S14i,
                   S21i, S22i, S23i, S24i,
                   S31i, S32i, S33i, S34i,
                   S41i, S42i, S43i, S44i],
+
+        PuzzleNumbers = [S11, S12, S13, S14,
+                  S21, S22, S23, S24,
+                  S31, S32, S33, S34,
+                  S41, S42, S43, S44],
+
+        %% digits(Puzzle, PuzzleNumbers),
 
         digit(S11i, S11),
         digit(S12i, S12),
@@ -46,7 +58,7 @@ sudoku(Puzzle, Solution) :-
         digit(S43i, S43),
         digit(S44i, S44),
  
-        ins(Puzzle, [1, 2, 3, 4]),
+        ins(PuzzleNumbers, [1, 2, 3, 4]),
  
         Row1 = [S11, S12, S13, S14],
         Row2 = [S21, S22, S23, S24],
