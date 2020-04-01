@@ -2,14 +2,15 @@ import torchvision
 import random
 
 testset = torchvision.datasets.MNIST(root='data/', train=False, download=True)
+trainset = torchvision.datasets.MNIST(root='data/', train=True, download=True)
 
-def sort_testset(sudoku_size):
+def sort_mnistset(sudoku_size, mnist_set=testset):
 	result = {}
 	i = 1
 	while i <= sudoku_size:
 		result.update({i: [0, []]})
 		i += 1
-	for i, number in enumerate(testset):
+	for i, number in enumerate(mnist_set):
 		try:
 			result[number[1]][1].append(i)
 		except:
@@ -19,8 +20,40 @@ def sort_testset(sudoku_size):
 	# 	print(number, len(result[number][1]))
 	return result
 
+def get_random_mnist_number(mnist_dict, sudoku_size):
+	i = random.randint(1, sudoku_size)
+	i_mnist = 0
+	try:
+		i_mnist = mnist_dict[i][1][mnist_dict[i][0]]
+		mnist_dict[i][0] = mnist_dict[i][0]+1
+	except:
+		i_mnist = mnist_dict[i][1][0]
+		mnist_dict[i][0] = 1
+	return i, i_mnist
+
+
+def prolog_format_addition(sudoku_size, filename):
+	mnist_dict = sort_mnistset(sudoku_size, trainset)
+	counter = 0
+
+	with open(filename, 'w') as new_file:
+		while counter < 30000:
+			counter += 1
+			i = random.randint(1, sudoku_size)
+			j = random.randint(1, sudoku_size)
+			i, i_mnist = get_random_mnist_number(mnist_dict, sudoku_size)
+			j, j_mnist = get_random_mnist_number(mnist_dict, sudoku_size)
+			# print(mnist_dict[1][0], mnist_dict[2][0], mnist_dict[3][0], mnist_dict[4][0])
+			# print('addition(' + str(i_mnist) + ',' + str(j_mnist) + ',' + str(i+j) + ').')
+			new_file.write('addition(' + str(i_mnist) + ',' + str(j_mnist) + ',' + str(i+j) + ').\n')
+
+
+
+
+
+
 def prolog_format_sudoku(sudoku_size, filename, n_remove, list_of_lists=False):
-	test_dict = sort_testset(sudoku_size)
+	test_dict = sort_mnistset(sudoku_size)
 	if sudoku_size * sudoku_size < n_remove:
 		return 0 #can't remove more numbers then there are fields
 	new_filename = filename.split('.')[0][:-7] + '_' + str(n_remove) + 'open.pl'
@@ -94,5 +127,6 @@ def prolog_format_sudoku(sudoku_size, filename, n_remove, list_of_lists=False):
 # format_sudoku(4, '4x4_sudoku_unique_puzzles.csv', '4x4_sudokus_solved.txt') #https://github.com/Black-Phoenix/4x4-Sudoku-Dataset/blob/master/4x4_sudoku_unique_puzzles.csv
 
 
-prolog_format_sudoku(4, '4x4_sudokus_solved.txt', 0)
+prolog_format_addition(4, 'addition_train_4.pl')
+# prolog_format_sudoku(4, '4x4_sudokus_solved.txt', 0)
 
