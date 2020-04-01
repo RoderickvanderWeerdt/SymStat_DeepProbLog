@@ -29,8 +29,8 @@ def prolog_format_sudoku(sudoku_size, filename, n_remove, list_of_lists=False):
 			sudoku_file.readline() #skip header
 			sudoku_counter = 0
 			for sudoku in sudoku_file.readlines():
-				# if sudoku_counter >= 200: break
-				# else: sudoku_counter += 1
+				if sudoku_counter >= 1000: break
+				else: sudoku_counter += 1
 				# print(sudoku)
 				i = 0
 				sudoku = sudoku[2:-3].split('],[')
