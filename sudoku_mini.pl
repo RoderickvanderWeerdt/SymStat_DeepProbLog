@@ -56,12 +56,20 @@ all_distinct([H|T]) :-
 
 /* --- Digits Function to go over a list of Digits --- */
 
-digits([],[]).
+digits([Himage],[Hvalue]):-
+    digit(Himage,Hvalue).
+
 digits([Himage|Timages], [Hvalue|Tvalues]) :-
-    digit2(Himage, Hvalue),
+    digit(Himage, Hvalue),
     digits(Timages, Tvalues).
 /* ------------------------------------------------- */
-
+love_func([HA,HB,HC,HD|T], Found):-
+   HA = [A1,A2,A3,A4],
+   HB = [B1,B2,B3,B4],
+   HC = [C1,C2,C3,C4],
+   HD = [D1,D2,D3,D4],
+   Found-in-between = [A1,A2,A3,A4,B1,B2,B3,B4,C1,C2,C3,C4,D1,D2,D3,D4],
+   append(Found-in-between,[],Found).
 
 /* ----- Sudoku Function --=-------------------------*/
 
@@ -91,11 +99,9 @@ sudoku2(Solution, Found):-
 
         valid2([Row1, Row2, Row3, Row4,
                Col1, Col2, Col3, Col4,
-               Square1, Square2, Square3, Square4], _),
-        Found = [S11, S12, S13, S14,
-                  S21, S22, S23, S24,
-                  S31, S32, S33, S34,
-                  S41, S42, S43, S44].
+               Square1, Square2, Square3, Square4], Love),
+        love_func(Love,Found).
+
 
 /*------------------------------------------------------*/
 sudoku(Puzzle, Love):-
