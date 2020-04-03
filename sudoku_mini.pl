@@ -37,10 +37,8 @@ memberchk(X,[X|_]) :- true.
 memberchk(X,[_|T]):- memberchk(X,T).
 
 unique([]).
-unique([X|Xs]) :- \+ memberchk(X, Xs), unique(Xs);
+unique([X|Xs]) :- \+ memberchk(X, Xs), unique(Xs).
 
-not_unique([]).
-not_unique([X|Xs]) :- memberchk(X, Xs), not_unique(Xs);
 /*----------------------------------------------*/
 
 all_distinct(_, []).
@@ -58,7 +56,7 @@ all_distinct([H|T]) :-
 
 /* --- Digits Function to go over a list of Digits --- */
 
-digits([], []).
+digits([],[]).
 digits([Himage|Timages], [Hvalue|Tvalues]) :-
     digit2(Himage, Hvalue),
     digits(Timages, Tvalues).
@@ -67,7 +65,7 @@ digits([Himage|Timages], [Hvalue|Tvalues]) :-
 
 /* ----- Sudoku Function --=-------------------------*/
 
-sudoku2(Solution, Love):-
+sudoku2(Solution, Found):-
 
         ins(Solution, [1, 2, 3, 4], Hype),
 
@@ -93,7 +91,11 @@ sudoku2(Solution, Love):-
 
         valid2([Row1, Row2, Row3, Row4,
                Col1, Col2, Col3, Col4,
-               Square1, Square2, Square3, Square4], Found).
+               Square1, Square2, Square3, Square4], _),
+        Found = [S11, S12, S13, S14,
+                  S21, S22, S23, S24,
+                  S31, S32, S33, S34,
+                  S41, S42, S43, S44].
 
 /*------------------------------------------------------*/
 sudoku(Puzzle, Love):-
@@ -101,12 +103,13 @@ sudoku(Puzzle, Love):-
   sudoku2(Solution, Love).
 /*------------------------------------------------------*/
 
+
+
 /* Valid function and it's helper functions */
 valid(Head, H) :-
-    %unique(Head),
-    all_distinct(Head),
+    unique(Head),
+    %all_distinct(Head),
     H = Head.
-
 
 valid2([Head],H):-
   valid(Head,H).
@@ -114,7 +117,6 @@ valid2([Head],H):-
 valid2([Head|Tail], [H|T]):-
     valid(Head, H),
     valid2(Tail,T).
-
 /* ---------------------------------------- */
 
 
