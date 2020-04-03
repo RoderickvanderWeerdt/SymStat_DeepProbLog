@@ -69,7 +69,7 @@ digits([Himage|Timages], [Hvalue|Tvalues]) :-
 
 /* ----- Sudoku Function --=-------------------------*/
 
-sudoku2(Solution, Love):-
+sudoku2(Solution):-
 
         ins(Solution, [1, 2, 3, 4], Hype),
 
@@ -95,14 +95,14 @@ sudoku2(Solution, Love):-
 
         valid2([Row1, Row2, Row3, Row4,
                Col1, Col2, Col3, Col4,
-               Square1, Square2, Square3, Square4], Found),
-       flatten(Found,Love).
+               Square1, Square2, Square3, Square4], Found).
+       %flatten(Found,Love).
 
 /*------------------------------------------------------*/
 sudoku(Puzzle, PuzzleSolved):-
   digits(Puzzle, Solution),
-  sudoku2(Solution, Love),
-  PuzzleSolved = Love.
+  PuzzleSolved = sudoku2(Solution).
+
 
 
 /*
@@ -118,7 +118,8 @@ return_func([Love|Tail],[PuzzleSolved|Tail2]):-
 
 /* Valid function and it's helper functions */
 valid(Head, H) :-
-    unique(Head),
+    %unique(Head),
+    all_distinct(Head),
     H = Head; H = [0,0,0,0].
 
 
