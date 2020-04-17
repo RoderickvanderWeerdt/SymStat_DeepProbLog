@@ -48,6 +48,17 @@ def test_MNIST(model,max_digit=10,name='mnist_net'):
     print('F1: ',F1)
     return [('F1',F1)]
 
+def create_digit2(model, max_digit, name=mnist_net):
+    with open('new_digits2.pl', 'w') as digits_file:
+        for i,d,l in enumerate(mnist_test_data):
+            if l < max_digit:
+                d = Variable(d.unsqueeze(0))
+                outputs = model.networks[name].net.forward(d)
+                _, out = torch.max(outputs.data, 1)
+                c = int(out.squeeze())
+                digits_file.write('digit2(' + str(i) + ', ' + str(l) + ').\n')
+
+
 #-------------------------------------------------------------------------------------
 
 def test(model):
