@@ -18,13 +18,13 @@ dir_path = os.path.dirname(path)
 
 
 # train_queries = load('train_data.txt')
-train_queries = load('train_data.txt')
-test_queries = load('test_data.txt')
-
+train_queries = load('train.txt')
+test_queries = load('4x4_sudokus_0open.pl')[:100]
+global iteration_n
 
 # HIER KUNNEN WE MNIST MEE TESTEN---------------------------------------------------
 transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5, ))])
-mnist_test_data = torchvision.datasets.MNIST(root=dir_path+'/data/MNIST', train=False, download=False,transform=transform)
+mnist_test_data = torchvision.datasets.MNIST(root=dir_path+'/data/MNIST', download=False,transform=transform)
 
 
 def test_MNIST(model,max_digit=10,name='mnist_net'):
@@ -48,25 +48,25 @@ def test_MNIST(model,max_digit=10,name='mnist_net'):
     print('F1: ',F1)
     return [('F1',F1)]
 
-iteration_n = 0
-def create_digit2(model, max_digit, name='mnist_net'):
-    with open('new_digits2_' + iteration_n + '.pl', 'w') as digits_file:
+def create_digit2(model, max_digit,iteration_n, name='mnist_net'):
+    with open('new_digits2_' + str(iteration_n) + '.pl', 'w') as digits_file:
         for i,[d,l] in enumerate(mnist_test_data):
             if l < max_digit:
                 d = Variable(d.unsqueeze(0))
                 outputs = model.networks[name].net.forward(d)
                 _, out = torch.max(outputs.data, 1)
                 c = int(out.squeeze())
-                digits_file.write('digit2(' + str(i) + ', ' + str(l) + ').\n')
-    iteration_n += 1
+                digits_file.write('digit2(' + str(i) + ', ' + str(c) + ').\n')
 
 
 #-------------------------------------------------------------------------------------
 
 def test(model):
+    global iteration_n
     acc = model.accuracy(test_queries, test=True,verbose=False)
     print('Accuracy: ', acc)
-    create_digit2(model, 5)
+    iteration_n = iteration_n +1
+    create_digit2(model, 5, iteration_n)
     return [('accuracy', acc)]
 
 
@@ -78,8 +78,8 @@ net = Network(network, 'mnist_net', neural_predicate)
 net.optimizer = torch.optim.Adam(network.parameters(),lr = 0.001)
 model = Model(problog_string, [net], caching=False)
 optimizer = Optimizer(model, 2)
+iteration_n = 0
 
-test_MNIST(model)
 
 test(model)
 train_model(model,train_queries, 1, optimizer,test_iter=1000,test=test,snapshot_iter=1000)
