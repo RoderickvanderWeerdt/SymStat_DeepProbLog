@@ -102,12 +102,22 @@ sudoku2(Solution, Found):-
         love_func(Love,Found).
 
 
-/*------------------------------------------------------*/
+/*--------------Sudoku Without Open Spots-----------------*/
 sudoku(Puzzle, Love):-
   digits(Puzzle, Solution),
   sudoku2(Solution, Love).
 /*------------------------------------------------------*/
 
+/* --- Sudoku with open spots -------------------------*/
+sudoku_solve(Puzzle, Love):-
+  digits(Puzzle, Part_Solution),
+  sudoku_open(Part_Solution, Solution),
+  sudoku2(Solution,Love).
+/*-----------------------------------------------------*/
+
+sudoku_open(part, solve):-
+    part = [S11, S12, S13, S21, S22, S23,S31, S34,S41,S42],
+    solve = [S11, S12, S13, _, S21, S22, S23, _, S31, _, _, S34, S41, S42, _, _, _].
 
 
 /* Valid function and it's helper functions */
