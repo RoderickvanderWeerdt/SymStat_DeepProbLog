@@ -65,8 +65,8 @@ def test(model):
     global iteration_n
     acc = model.accuracy(test_queries, test=True,verbose=False)
     print('Accuracy: ', acc)
-    iteration_n = iteration_n +1
-    create_digit2(model, 5, iteration_n)
+    #iteration_n = iteration_n +1
+    #create_digit2(model, 5, iteration_n)
     return [('accuracy', acc)]
 
 
@@ -82,4 +82,4 @@ iteration_n = 0
 
 
 test(model)
-train_model(model,train_queries, 1, optimizer,test_iter=1000,test=test,snapshot_iter=1000)
+train_model(model,train_queries, 1, optimizer,test_iter=1000,test=test,snapshot_iter=10000)

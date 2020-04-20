@@ -34,8 +34,9 @@ i = 0
 while i <= 32:
     with open('sudoku_mini.pl') as f:
         problog_string = f.read()
-    with open('new_digits2_' + i + '.pl') as f:
+    with open('new_digits2_' + str(i) + '.pl') as f:
         problog_string += f.read()
+    i += 1
 
 
     network = MNIST_Net()

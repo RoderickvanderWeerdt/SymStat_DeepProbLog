@@ -6,12 +6,12 @@
 /*----------------------------------------------------*/
 
 % code for training the test set
-%% nn(mnist_net,[X],Y,[0,1,2,3,4,5,6,7,8,9]) :: digit2(X,Y).
+nn(mnist_net,[X],Y,[0,1,2,3,4,5,6,7,8,9]) :: digit(X,Y).
 
-%addition(X,Y,Z) :- digit2(X,X2), digit2(Y,Y2), Z is X2+Y2.
+%addition(X,Y,Z) :- digit(X,X2), digit(Y,Y2), Z is X2+Y2.
 
 number([],Result,Result).
-number([H|T],Acc,Result) :- digit2(H,Nr), Acc2 is Nr+10*Acc,number(T,Acc2,Result).
+number([H|T],Acc,Result) :- digit(H,Nr), Acc2 is Nr+10*Acc,number(T,Acc2,Result).
 number(X,Y) :- number(X,0,Y).
 
 addition(X,Y,Z) :- number(X,X2), number(Y,Y2), Z is X2+Y2.
@@ -57,19 +57,18 @@ all_distinct([H|T]) :-
 /* --- Digits Function to go over a list of Digits --- */
 
 digits([Himage],[Hvalue]):-
-    digit2(Himage,Hvalue).
+    digit(Himage,Hvalue).
 
 digits([Himage|Timages], [Hvalue|Tvalues]) :-
-    digit2(Himage, Hvalue),
+    digit(Himage, Hvalue),
     digits(Timages, Tvalues).
 /* ------------------------------------------------- */
-love_func([HA,HB,HC,HD|T], Found):-
+love_func([HA,HB,HC,HD|T], Found_in_between):-
    HA = [A1,A2,A3,A4],
    HB = [B1,B2,B3,B4],
    HC = [C1,C2,C3,C4],
    HD = [D1,D2,D3,D4],
-   Found_in_between = [A1,A2,A3,A4,B1,B2,B3,B4,C1,C2,C3,C4,D1,D2,D3,D4],
-   append(Found_in_between,[],Found).
+   Found_in_between = [A1,A2,A3,A4,B1,B2,B3,B4,C1,C2,C3,C4,D1,D2,D3,D4].
 
 /* ----- Sudoku Function --=-------------------------*/
 
