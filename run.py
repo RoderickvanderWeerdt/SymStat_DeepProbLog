@@ -19,8 +19,8 @@ dir_path = os.path.dirname(path)
 
 
 train_queries = load('train.txt')
-test_queries = load('4x4_sudokus_0open.pl')[:100]
-#test_queries = load('9x9_sudokus_0open.pl')[:100]
+#test_queries = load('4x4_sudokus_0open.pl')[:100]
+test_queries = load('9x9_sudokus_0open.pl')[:100]
 
 # Definitions---------------------------------------------------
 transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5, ))])
